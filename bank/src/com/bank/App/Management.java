@@ -37,6 +37,7 @@ public class Management {
 				} else if (menuNo == 5) {
 					as.deleteAccount();
 				} else if (menuNo == 6) {
+					System.out.println("1.대출 2.대출정보변경");
 					int menu = Integer.parseInt(sc.nextLine());
 					if (menu == 1) {
 						ls.insertLoan();

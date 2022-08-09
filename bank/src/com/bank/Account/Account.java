@@ -2,13 +2,15 @@ package com.bank.Account;
 
 import java.sql.Date; // 년/월/일 , java,util.date -> 년/월/일/시/분/초
 
+import lombok.Setter;
+
+@Setter	
 public class Account {
 
 	private String accountId;
 	private String memberId;
 	private int balance;
 	private Date credate;
-	
 	
 	
 	public String getAccountId() {
