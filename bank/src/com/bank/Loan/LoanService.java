@@ -34,9 +34,9 @@ public class LoanService {
 		String startDay = sc.nextLine();
 		
 		Date date = null;
-		// String ->() -> Date
-		// String ->DateFormat = Date
-		// DateFormat -> SimpleDateFormat(날짜형태)
+//		 String ->() -> Date
+//		 String ->DateFormat = Date
+//		 DateFormat -> SimpleDateFormat(날짜형태)
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd");
 		
 		System.out.println("대출 상태: ");

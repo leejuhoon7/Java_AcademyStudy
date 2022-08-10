@@ -1,136 +1,159 @@
 package book;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import common.DAO;
 
-public class BookDAO extends DAO{
+public class BookDAO extends DAO {
 
 	private static BookDAO bd = null;
 	Scanner sc = new Scanner(System.in);
-	
-	
+
 	private BookDAO() {
-		
+
 	}
-	
+
 	public static BookDAO getInstance() {
-		
+
 		return bd == null ? new BookDAO() : bd;
 	}
-	
+
 	// 2. 도서 등록
 
-		public int insertBook(Book bk) {
-			int result = 0;
+	public int insertBook(Book bk) {
+		int result = 0;
 
-			try {
+		try {
 
-				conn();
-				String sql = "insert into book(title, author, content) values(?, ?, ?)";
-				pstmt = conn.prepareStatement(sql);
+			conn();
+			String sql = "insert into book(booknumber, title, author, content) values(?, ?, ?, ?)";
+			pstmt = conn.prepareStatement(sql);
 
-				pstmt.setString(1, bk.getTitle());
-				pstmt.setString(2, bk.getAuthor());
-				pstmt.setString(3, bk.getTitle());
+			pstmt.setInt(1, bk.getBookNumber());
+			pstmt.setString(2, bk.getTitle());
+			pstmt.setString(3, bk.getAuthor());
+			pstmt.setString(4, bk.getContent());
 
-				result = pstmt.executeUpdate();
+			result = pstmt.executeUpdate();
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				disconnect();
-			}
-
-			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
 		}
 
-		// 3. 도서 정보 수정(내용물)
+		return result;
+	}
 
-		public int updateBook(Book bk) {
-			int result = 0;
+	// 3. 도서 정보 수정(내용물)
 
-			try {
-				conn();
-				String sql = "update book set content = ? where title = ? ";
+	public int updateBook(Book bk) {
+		int result = 0;
 
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, bk.getContent());
-				pstmt.setString(2, bk.getTitle());
+		try {
+			conn();
+			String sql = "update book set content = ? where title = ? ";
 
-				result = pstmt.executeUpdate();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bk.getContent());
+			pstmt.setString(2, bk.getTitle());
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				disconnect();
-			}
+			result = pstmt.executeUpdate();
 
-			return result;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
 		}
 
-		// 4. 도서 대출
+		return result;
+	}
 
-		// 5. 도서 반납
+	// 7-1. 도서 검색 (부분)
 
-		// 6. 도서 연체
+	public Book searchBook(String bk) {
 
-		// 7. 도서 검색
+		Book book = null;
 
-		public Book searchBook(Book bk) {
-			
-			Book book = null;
+		try {
+			conn();
 
-			try {
-				conn();
+			String sql = "select * from book where title = ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bk);
 
-				String sql = "select * from book where title = ? ";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, bk.getTitle());
-				
-				rs = pstmt.executeQuery();
-				if(rs.next()){
-					book = new Book();
-					book.setTitle(rs.getString("title"));
-					book.setAuthor(rs.getString("author"));
-					book.setContent(rs.getString("content"));
-					
-				}
-				
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				book = new Book();
+				book.setTitle(rs.getString("title"));
+				book.setAuthor(rs.getString("author"));
+				book.setContent(rs.getString("content"));
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				disconnect();
 			}
 
-			return book;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
 		}
-		
-		// 8. 도서 삭제
-		
-		public int delBook(String bk) {
-			
-			int result = 1;
-			
-			try {
-				
-				conn();
-				String sql = "delete from book where title = ? ";
-				
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, bk);
-				
-				result = pstmt.executeUpdate();
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				disconnect();
-			}
-			
-			return result;
-			
 
+		return book;
+	}
+
+	// 7-2 도서 전체 검색
+
+	public List<Book> allsearchBook() {
+		List<Book> list = new ArrayList<>();
+		Book book = null;
+
+		try {
+			conn();
+
+			String sql = "select * from book";
+			stmt = conn.createStatement();
+
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				book = new Book();
+				book.setTitle(rs.getString("title"));
+				book.setAuthor(rs.getString("author"));
+				book.setContent(rs.getString("content"));
+				list.add(book);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
 		}
+
+		return list;
+	}
+
+	// 8. 도서 삭제
+
+	public int delBook(String bk) {
+
+		int result = 1;
+
+		try {
+
+			conn();
+			String sql = "delete from book where title = ? ";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, bk);
+
+			result = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+
+		return result;
+	}
 }

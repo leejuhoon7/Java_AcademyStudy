@@ -15,7 +15,10 @@ public class CustomerDAO extends DAO {
 
 	public static CustomerDAO getInstance() {
 
-		return cd == null ? new CustomerDAO() : cd;
+		if (cd == null) {
+			cd = new CustomerDAO();
+		}
+		return cd;
 	}
 
 	// 1. 고객 등록
@@ -25,7 +28,7 @@ public class CustomerDAO extends DAO {
 		try {
 
 			conn();
-			String sql = "insert into customer (id, pw, name, tel) " + "values(?, ?, ?, ?)";
+			String sql = "insert into customer (id, pw, name, tel) " + " values(?, ?, ?, ?)";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, ct.getId());
@@ -44,5 +47,4 @@ public class CustomerDAO extends DAO {
 		return result;
 	}
 
-	
 }

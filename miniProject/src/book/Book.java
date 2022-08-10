@@ -4,9 +4,16 @@ public class Book {
 
 	private String title;
 	private String author;
-	private int delay;
 	private String content;
+	private int bookNumber;
 	
+	
+	public int getBookNumber() {
+		return bookNumber;
+	}
+	public void setBookNumber(int bookNumber) {
+		this.bookNumber = bookNumber;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -18,12 +25,6 @@ public class Book {
 	}
 	public void setAuthor(String author) {
 		this.author = author;
-	}
-	public int getDelay() {
-		return delay;
-	}
-	public void setDelay(int delay) {
-		this.delay = delay;
 	}
 	public String getContent() {
 		return content;
