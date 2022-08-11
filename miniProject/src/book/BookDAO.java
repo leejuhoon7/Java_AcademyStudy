@@ -17,7 +17,10 @@ public class BookDAO extends DAO {
 
 	public static BookDAO getInstance() {
 
-		return bd == null ? new BookDAO() : bd;
+		if(bd == null) {
+			bd = new BookDAO();
+		}
+		return bd;
 	}
 
 	// 2. 도서 등록

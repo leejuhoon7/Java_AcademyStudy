@@ -1,19 +1,14 @@
 package BookInformation;
 
+import java.util.Date;
+
 public class BookData {
 
-	private int bookNumber;
 	private String bookLend;
 	private String bookReturn;
-	private char bookDelay;
+	private String bookDelay;
 	
 	
-	public int getBookNumber() {
-		return bookNumber;
-	}
-	public void setBookNumber(int bookNumber) {
-		this.bookNumber = bookNumber;
-	}
 	public String getBookLend() {
 		return bookLend;
 	}
@@ -26,12 +21,16 @@ public class BookData {
 	public void setBookReturn(String bookReturn) {
 		this.bookReturn = bookReturn;
 	}
-	public char getBookDelay() {
+	public String getBookDelay() {
 		return bookDelay;
 	}
-	public void setBookDelay(char bookDelay) {
+	public void setBookDelay(String bookDelay) {
 		this.bookDelay = bookDelay;
 	}
+	
+	
+	
+	
 	
 	
 }

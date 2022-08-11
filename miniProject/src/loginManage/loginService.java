@@ -2,6 +2,7 @@ package loginManage;
 
 import java.util.Scanner;
 
+
 public class loginService {
 
 	
@@ -26,6 +27,8 @@ public class loginService {
 		} else {
 			System.out.println("로그인 실패");
 		}
+		
+		
 	}
 	
 	public void logout() {
@@ -33,4 +36,7 @@ public class loginService {
 			memberInfo = null;
 		}
 	}
+	
+	
+	
 }

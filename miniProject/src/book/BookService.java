@@ -127,6 +127,8 @@ public class BookService {
 		String delbook = sc.nextLine();
 		
 		bk.setTitle(delbook);
+
+		
 		
 		int result = BookDAO.getInstance().delBook(delbook);
 		if(result == 1) {
